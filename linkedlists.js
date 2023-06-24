@@ -100,12 +100,8 @@ class LinkedList{
     let cur = this.root;
     let curIndex = 0;
 
-    if(cur.value === value){
-      console.log("FOUND IT AT INDEX " + curIndex)
-      return curIndex;
-    }
-
-    while(cur.next !== null){
+    while(cur !== null){
+      console.log(`Comparing ${cur.value} & ${value}`);
       if(cur.value === value){
         console.log("FOUND IT AT INDEX " + curIndex)
         return curIndex;
@@ -141,6 +137,10 @@ class LinkedList{
     while(curIndex < index - 1){
       cur = cur.next;
       curIndex++;
+      if(cur.next === null){
+        cur.next = n;
+        return;
+      }
     }
 
     n.next = cur.next;
@@ -157,6 +157,10 @@ class LinkedList{
       cur = cur.next;
       prev = cur;
       curIndex++;
+      if(cur === null){
+        console.log("Out of bounds")
+        return;
+      }
     }
     prev.next = cur.next.next;
   }
@@ -228,6 +232,7 @@ console.log("~~~~~~~~~~~~")
 
 console.log("TEST find(value)")
 x.find(333333)
+x.find("Don't find this")
 x.traverse();
 console.log("~~~~~~~~~~~~")
 
@@ -238,10 +243,12 @@ console.log("~~~~~~~~~~~~")
 
 console.log("TEST insertAt(value, index)")
 x.insertAt("INSERT ME HERE", 3)
+x.insertAt("INSERT PAST THE LIST", 9)
 x.traverse();
 console.log("~~~~~~~~~~~~")
 
 console.log("TEST removeAt(index)")
 x.removeAt(3)
+x.removeAt(10)
 x.traverse();
 console.log("~~~~~~~~~~~~")
